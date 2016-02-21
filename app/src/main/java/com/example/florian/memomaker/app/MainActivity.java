@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+
 
 import java.util.Locale;
 
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         // Create the adapter that will return a fragment for each of the two
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getApplicationContext(),getSupportFragmentManager());
@@ -57,17 +60,33 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent explicitIntentMemo = new Intent (MainActivity.this, NeuesMemoActivity.class);
-                startActivity(explicitIntentMemo);
+                Intent explicitIntentSelection = new Intent (MainActivity.this, NeuanlageAuswahl.class);
+                startActivity(explicitIntentSelection);
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                   //      .setAction("Action", null).show();
             }
         });
 
 
+       // buildFAB();
     }
-
-
+/*
+    private void buildFAB() {
+        //FLOATING ACTION BUTTON
+        ImageView iconFab = new ImageView(this);
+        iconFab.setImageResource(R.drawable.ic_add_circle_white_36pt);
+        FloatingActionButton fab = new FloatingActionButton.Builder(this);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent explicitIntentMemo = new Intent (MainActivity.this, NeuesMemoActivity.class);
+                startActivity(explicitIntentMemo);
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //      .setAction("Action", null).show();
+            }
+        });
+    }
+*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -136,4 +155,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 }

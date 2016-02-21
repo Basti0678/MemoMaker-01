@@ -5,36 +5,35 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 /**
- * Created by Florian on 19.02.2016.
+ * Created by Studium on 20.02.2016.
  */
-public class NeuesMemoActivity extends AppCompatActivity{
+public class NeueTodoActivity extends AppCompatActivity{
 
     //DB
     SQLiteDatabase mydb;
     private static String DBMEMO = "memomaker.db";
     private static String TABLE = "mmdata";
 
-    // Datum
-    EditText editDate;
-    private String textDate;
+    EditText prio;
+    private String textPrio;
     private String text;
     EditText editText;
     Button saveButton;
-    public static final String MY_PREFS_NAME = "InstantSave";
+    public static final String MY_PREFS_NAME = "InstantSaveTodo";
 
     private void updateProperties(){
-        // Datum
-        editDate =(EditText)findViewById(R.id.memoDate);
-        textDate = editDate.getText().toString();
+        // Priorität
+        prio =(EditText)findViewById(R.id.prio);
+        textPrio = prio.getText().toString();
 
-        editText = (EditText)findViewById(R.id.newMemo);
+        editText = (EditText)findViewById(R.id.newTodo);
         saveButton = (Button)findViewById(R.id.savebutton);
 
         text = editText.getText().toString();
@@ -48,7 +47,7 @@ public class NeuesMemoActivity extends AppCompatActivity{
 
         edit.putString("KEY_TEXT", text);
         //Datum
-        edit.putString("KEY_DATE", textDate);
+        edit.putString("KEY_PRIO", textPrio);
         edit.commit();
     }
 
@@ -57,11 +56,11 @@ public class NeuesMemoActivity extends AppCompatActivity{
         text = shared.getString("KEY_TEXT","");
 
         //Datum
-        textDate = shared.getString("KEY_DATE","");
-        editDate = (EditText) findViewById(R.id.memoDate);
-        editDate.setText(textDate);
+        textPrio = shared.getString("KEY_PRIO","");
+        prio = (EditText) findViewById(R.id.prio);
+        prio.setText(textPrio);
 
-        editText = (EditText) findViewById(R.id.newMemo);
+        editText = (EditText) findViewById(R.id.newTodo);
         saveButton = (Button)findViewById(R.id.savebutton);
 
         editText.setText(text);
@@ -84,12 +83,16 @@ public class NeuesMemoActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
-        setContentView(R.layout.add_new_memoitem);
+        setContentView(R.layout.add_new_todoitem);
 
         final Button saveButton = (Button) findViewById(R.id.savebutton);
-        EditText editText = (EditText) findViewById(R.id.newMemo);
+        EditText editText = (EditText) findViewById(R.id.newTodo);
+
+        // Test löschen DB
+        //dropTable();
 
         loadSettings();
+        createTable();
 
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +114,11 @@ public class NeuesMemoActivity extends AppCompatActivity{
             }
         });
 
+
+
     }
+
+//DB
     public void createTable() {
         try {
             mydb = openOrCreateDatabase(DBMEMO, Context.MODE_PRIVATE, null);
@@ -128,16 +135,16 @@ public class NeuesMemoActivity extends AppCompatActivity{
         try {
             mydb = openOrCreateDatabase(DBMEMO, Context.MODE_PRIVATE, null);
             mydb.execSQL("INSERT INTO " + TABLE + " (TYPE, DATEMEMO, PRIORITY, DESCRIPTION, ARCHIVE) " +
-                    "VALUES('memo', '" + textDate + "' , '', '" + text + "', 0)");
+                    "VALUES('todo', '' , '" + textPrio + "', '" + text + "', 0)");
             /* Testdaten
             mydb.execSQL("INSERT INTO " + TABLE + " (TYPE, DATEMEMO, PRIORITY, DESCRIPTION, ARCHIVE) " +
-                            "VALUES('todo', '' , 'A', 'Testtodo1', 0)");
+                            "VALUES('todo', '' , 'A', 'Testtodo1',0)");
             mydb.execSQL("INSERT INTO " + TABLE + " (TYPE, DATEMEMO, PRIORITY, DESCRIPTION, ARCHIVE) " +
-                    "VALUES('todo', '' , 'A', 'Testtodo2', 0)");
+                    "VALUES('todo', '' , 'A', 'Testtodo2',0)");
             mydb.execSQL("INSERT INTO " + TABLE + " (TYPE, DATEMEMO, PRIORITY, DESCRIPTION, ARCHIVE) " +
-                    "VALUES('todo', '' , 'A', 'Testtodo3', 0)");
+                    "VALUES('todo', '' , 'A', 'Testtodo3',0)");
             mydb.execSQL("INSERT INTO " + TABLE + " (TYPE, DATEMEMO, PRIORITY, DESCRIPTION, ARCHIVE) " +
-                    "VALUES('todo', '' , 'A', 'Testtodo4', 0)");
+                    "VALUES('todo', '' , 'A', 'Testtodo4',0)");
             */
             mydb.close();
             Toast.makeText(getApplicationContext(), "Speichern erfolgreich", Toast.LENGTH_LONG);
@@ -157,5 +164,5 @@ public class NeuesMemoActivity extends AppCompatActivity{
             Toast.makeText(getApplicationContext(), "Fehler beim Loeschen der Datenbank", Toast.LENGTH_LONG);
         }
     }
-
 }
+

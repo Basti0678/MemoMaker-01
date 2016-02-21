@@ -9,8 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/memos"
-        android:id="@+id/titletextViewMemo"
+        android:text="@string/todos"
+        android:id="@+id/titletextViewTodo"
         android:layout_gravity="start"
         android:singleLine="true"
         android:layout_marginBottom="30dp"/>
@@ -19,25 +19,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/memodate"
-        android:id="@+id/titletextMemoDate"
+        android:text="@string/todoprio"
+        android:id="@+id/titletextTodoPrio"
         android:layout_gravity="start"
         android:singleLine="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/memoDate"
+        android:inputType="textCapCharacters"
+        android:ems="2"
+        android:id="@+id/prio"
         android:layout_marginBottom="30dp"/>
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/newMemo"
-        android:hint="@string/hintmemo"
+        android:id="@+id/newTodo"
+        android:layout_gravity="center_horizontal"
+        android:editable="true"
+        android:hint="@string/hinttodo"
         android:layout_weight="9"/>
 
     <Button
